@@ -31,12 +31,13 @@ function typeEffect() {
 }
 
 // Add this to your existing frontend script.js
-document.getElementById('contact-form').addEventListener('submit', async (e) => {
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
     e.preventDefault(); // Stop the page from refreshing automatically
 
     // Grab the values typed by the user in your input fields
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;
 
     try {
@@ -51,7 +52,7 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
 
         if (data.success) {
             alert('Awesome! Your message has been saved to the MySQL database.');
-            document.getElementById('contact-form').reset(); // Clear the form inputs
+            document.getElementById('contactForm').reset(); // Clear the form inputs
         } else {
             alert('Oops! Database error.');
         }

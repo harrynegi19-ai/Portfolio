@@ -34,6 +34,7 @@ const form = document.getElementById('contactForm');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault(); // 👈 CRUCIAL: This stops the browser from doing a 405 reload!const name = document.getElementById('name').value;
+    const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;

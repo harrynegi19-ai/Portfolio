@@ -41,12 +41,12 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
 
     try {
         // Shoot the data over the network to our Node server on port 5000
-        const response = await fetch('http://localhost:5000/api/contact', {
+        const response = await fetch('https://harry-portfolio-backend.onrender.com/api/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, message })
+            body: JSON.stringify({ name, email,subject, message })
         });
 
         const data = await response.json();

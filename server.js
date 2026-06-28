@@ -11,10 +11,14 @@ app.use(express.json());  // Parses incoming form data into JSON format
 
 // 1. Configure the MySQL Connection Pool
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',             // Your MySQL username (default is 'root')
-    password: '',             // Your MySQL password (leave blank for XAMPP, or type your custom password)
-    database: 'portfolioDB',  // The name of your database
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 4000,
+    ssl: {
+        rejectUnauthorized: false // This line is required for TiDB Cloud secure connections!
+    },
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -32,11 +36,11 @@ db.getConnection((err, connection) => {
 
 // 2. Create the API Route to handle Form Submissions
 app.post('/api/contact', (req, res) => {
-    const { name, email,subject, message } = req.body;
+    const { name, email, message } = req.body;
 
-    const sqlInsert = "INSERT INTO contacts (name, email,subject, message) VALUES (?, ?, ?, ?)";
+    const sqlInsert = "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)";
     
-    db.query(sqlInsert, [name, email,subject, message], (err, result) => {
+    db.query(sqlInsert, [name, email, message], (err, result) => {
         if (err) {
             console.error("Error inserting data into MySQL:", err);
             return res.status(500).json({ success: false, message: 'Database error.' });
@@ -46,7 +50,9 @@ app.post('/api/contact', (req, res) => {
 });
 
 // 3. Start the Server
-const PORT = 5000;
+// Change const PORT = 5000; to this:
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });

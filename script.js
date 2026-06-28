@@ -30,12 +30,10 @@ function typeEffect() {
     setTimeout(typeEffect, speed);
 }
 
-// Add this to your existing frontend script.js
-document.getElementById('contactForm').addEventListener('submit', async (e) => {
-    e.preventDefault(); // Stop the page from refreshing automatically
+const form = document.getElementById('contactForm');
 
-    // Grab the values typed by the user in your input fields
-    const name = document.getElementById('name').value;
+form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // 👈 CRUCIAL: This stops the browser from doing a 405 reload!const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;

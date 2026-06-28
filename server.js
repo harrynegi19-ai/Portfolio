@@ -36,11 +36,11 @@ db.getConnection((err, connection) => {
 
 // 2. Create the API Route to handle Form Submissions
 app.post('/api/contact', (req, res) => {
-    const { name, email, message } = req.body;
+    const { name, email, subject, message } = req.body;
 
-    const sqlInsert = "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)";
+    const sqlInsert = "INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)";
     
-    db.query(sqlInsert, [name, email, message], (err, result) => {
+    db.query(sqlInsert, [name, email, subject, message], (err, result) => {
         if (err) {
             console.error("Error inserting data into MySQL:", err);
             return res.status(500).json({ success: false, message: 'Database error.' });
